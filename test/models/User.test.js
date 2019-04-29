@@ -16,6 +16,15 @@ describe('User Model test', () => {
             twitterHandle: 'fakeTwitter',
             _id: expect.any(mongoose.Types.ObjectId)
         });
-
     });
-})
+
+    it('has required fields', () => {
+        const newUser = new User({
+            email: 'test@email.net',
+            password: 'testpw',
+            twitterHandle: 'fakeTwitter'
+        });
+        const errors = newUser.validateSync().errors;
+        expect(errors.username.message).toEqual('Path `username` is required.');
+    });
+});
