@@ -55,6 +55,33 @@ describe('Auth Routes Tests', () => {
           }, token: expect.any(String)
         });
       });
+  });
+
+  it('can update an existing user by username', () => {
+    return request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        email: 'email@test.com',
+        username: 'slowsloh',
+        password: 'ham',
+        twitterHandle: 'yup'
+      })
+      .then(res => {
+        return request(app)
+          .patch(`/api/v1/auth/${res.body.user.username}`)
+          .set('Authorization', `Bearer ${res.body.token}`)
+          .send({
+            username: 'slowsloth'
+          });
+      })
+      .then(updatedUser => {
+        expect(updatedUser.body).toEqual({
+          _id: expect.any(String),
+          email: 'email@test.com',
+          username: 'slowsloth',
+          twitterHandle: 'yup'
+        });
+      });
 
   });
 });
