@@ -17,11 +17,14 @@ describe('Auth Routes Tests', () => {
       })
       .then(res => {
         expect(res.body).toEqual({
-          __v: 0,
-          _id: expect.any(String),
-          email: 'testy@getoffmyback.com',
-          username: 'spicy',
-          twitterHandle: 'yup'
+          user: {
+            __v: 0,
+            _id: expect.any(String),
+            email: 'testy@getoffmyback.com',
+            username: 'spicy',
+            twitterHandle: 'yup'
+          }, token: expect.any(String)
+            
         });
       });
   });   
