@@ -57,7 +57,7 @@ describe('Auth Routes Tests', () => {
       });
   });
 
-  it('can update an existing user by username', () => {
+  it('can update an existing user by username and twitterHandle', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -71,7 +71,8 @@ describe('Auth Routes Tests', () => {
           .patch(`/api/v1/auth/${res.body.user.username}`)
           .set('Authorization', `Bearer ${res.body.token}`)
           .send({
-            username: 'slowsloth'
+            username: 'slowsloth',
+            twitterHandle: 'nopeee'
           });
       })
       .then(updatedUser => {
@@ -79,7 +80,7 @@ describe('Auth Routes Tests', () => {
           _id: expect.any(String),
           email: 'email@test.com',
           username: 'slowsloth',
-          twitterHandle: 'yup'
+          twitterHandle: 'nopeee'
         });
       });
 
