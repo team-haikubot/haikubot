@@ -83,6 +83,29 @@ describe('Auth Routes Tests', () => {
           twitterHandle: 'nopeee'
         });
       });
+  });
 
+  it('can delete a user', () => {
+    return request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        email: 'email@test.com',
+        username: 'slowsloh',
+        password: 'ham',
+        twitterHandle: 'yup'
+      })
+      .then(res => {
+        return request(app)
+          .delete(`/api/v1/auth/${res.body.user.username}`)
+          .set('Authorization', `Bearer ${res.body.token}`)
+          .then(res => {
+            expect(res.body).toEqual({
+              _id: expect.any(String),
+              email: 'email@test.com',
+              username: 'slowsloh',
+              twitterHandle: 'yup'
+            });
+          });
+      });
   });
 });
