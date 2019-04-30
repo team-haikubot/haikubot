@@ -2,8 +2,8 @@ require('../data-helpers');
 const request = require('supertest');
 const app = require('../../lib/app');
 
-describe('fives routes tests', () => {
-  it('can post a five', () => {
+describe('sevens routes tests', () => {
+  it('can post a seven', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -15,15 +15,15 @@ describe('fives routes tests', () => {
       
       .then(user => {
         return request(app)
-          .post('/api/v1/fives')
+          .post('/api/v1/sevens')
           .set('Authorization', `Bearer ${user.body.token}`)
           .send({
-            text: 'why are you so mean!?'
+            text: 'why are you so mean to me!?'
           });
       })
-      .then(five => {
-        expect(five.body).toEqual({
-          text: 'why are you so mean!?',
+      .then(seven => {
+        expect(seven.body).toEqual({
+          text: 'why are you so mean to me!?',
           _id: expect.any(String),
           __v: 0,
           tags: [],
