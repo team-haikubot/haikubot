@@ -19,24 +19,24 @@ describe('Syllable Count Tests', () => {
     syllableCountMW(req, res, next);
   });
   it('passes string along if path is 7 and syllable count is 7', done => {
-    const text = 'like the morning dude kk';
+    const text = 'like the morning dude ok';
     const req = { body: text, route:{ path: '/api/v1/sevens' } };
     const res = {};
     const next = () => {
-      expect(req.body).toEqual('like the morning dude kk');
+      expect(req.body).toEqual('like the morning dude ok');
       done();
     };
     syllableCountMW(req, res, next);
   });
 
-  // it('returns error if path is 5 and syllable count is not 5', done => {
-  //   const text = 'like the morning dude yo';
-  //   const req = { body: text, route:{ path: '/api/v1/fives' } };
-  //   const res = {};
-  //   const next = () => {
-  //     expect(res).toThrowError();
-  //     done();
-  //   };
-  //   syllableCountMW(req, res, next);
-  // });
+  it('returns error if path is 5 and syllable count is not 5', done => {
+    const text = 'like the morning dude yo';
+    const req = { body: text, route:{ path: '/api/v1/fives' } };
+    const res = {};
+    const next = (error) => {
+      expect(error).toBeDefined();
+      done();
+    };
+    syllableCountMW(req, res, next);
+  });
 });
