@@ -23,7 +23,6 @@ describe('fives routes tests', () => {
           });
       })
       .then(five => {
-        // console.log(five.body);
         expect(five.body).toEqual({
           text: 'why are you so mean!?',
           _id: expect.any(String),
