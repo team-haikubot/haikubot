@@ -1,5 +1,4 @@
 require('../data-helpers');
-const mongoose = require('mongoose');
 const request = require('supertest');
 const User = require('../../lib/models/User');
 const app = require('../../lib/app');
