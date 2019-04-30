@@ -14,7 +14,6 @@ describe('Favorites Routes Test', () => {
   });
 
   it('posting a haiku as a favorite', () => {
-    
     return request(app)
       .post('/api/v1/auth/signin')
       .send({
@@ -42,6 +41,25 @@ describe('Favorites Routes Test', () => {
           haiku: expect.any(String),
           __v: 0
         });
+      });
+  });
+
+  it('can GET all favorited haikus for a user', () => {
+    return request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'testy@getoffmyback.com',
+        username: 'spicy',
+        password: 'ham',
+        twitterHandle: 'yup'
+      })
+      .then(user => {
+        return request(app)
+          .get('/api/v1/favorites')
+          .set('Authorization', `Bearer ${user.body.token}`)
+          .then(favorites => {
+            expect(favorites.body).toHaveLength(81);
+          });
       });
   });
         
