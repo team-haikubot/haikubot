@@ -7,10 +7,8 @@ describe('fives routes tests', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
-        email: 'testy@getoffmyback.com',
         username: 'spicy',
-        password: 'ham',
-        twitterHandle: 'yup'
+        password: 'ham'
       })
       
       .then(user => {
@@ -26,7 +24,6 @@ describe('fives routes tests', () => {
           text: 'why are you so mean!?',
           _id: expect.any(String),
           __v: 0,
-          tags: [],
           sentiment: expect.any(Number),
           source: expect.any(String)
         });
