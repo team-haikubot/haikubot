@@ -9,19 +9,15 @@ describe('Auth Routes Tests', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
-        email: 'testy@getoffmyback.com',
         username: 'spicy',
-        password: 'ham',
-        twitterHandle: 'yup'
+        password: 'ham'
       })
       .then(res => {
         expect(res.body).toEqual({
           user: {
             __v: 0,
             _id: expect.any(String),
-            email: 'testy@getoffmyback.com',
             username: 'spicy',
-            twitterHandle: 'yup'
           }, token: expect.any(String)
             
         });
@@ -30,17 +26,15 @@ describe('Auth Routes Tests', () => {
   
   it('signs in a user', () => {
     return User.create({
-      email: 'testy@getoffmyback.com',
       username: 'spicy',
-      password: 'ham',
-      twitterHandle: 'yup'
+      password: 'ham'
     })
       .then(() => {
         return request(app)
           .post('/api/v1/auth/signin')
           .send({
             username: 'spicy',
-            password: 'ham',
+            password: 'ham'
           });
       })
       .then(res => {
@@ -48,38 +42,31 @@ describe('Auth Routes Tests', () => {
           user: {
             __v: 0,
             _id: expect.any(String),
-            email: 'testy@getoffmyback.com',
-            username: 'spicy',
-            twitterHandle: 'yup'
+            username: 'spicy'
           }, token: expect.any(String)
         });
       });
   });
 
-  it('can update an existing user by username and twitterHandle', () => {
+  it('can update an existing user by username', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
-        email: 'email@test.com',
         username: 'slowsloh',
-        password: 'ham',
-        twitterHandle: 'yup'
+        password: 'ham'
       })
       .then(res => {
         return request(app)
           .patch(`/api/v1/auth/${res.body.user.username}`)
           .set('Authorization', `Bearer ${res.body.token}`)
           .send({
-            username: 'slowsloth',
-            twitterHandle: 'nopeee'
+            username: 'slowsloth'
           });
       })
       .then(updatedUser => {
         expect(updatedUser.body).toEqual({
           _id: expect.any(String),
-          email: 'email@test.com',
-          username: 'slowsloth',
-          twitterHandle: 'nopeee'
+          username: 'slowsloth'
         });
       });
   });
@@ -88,10 +75,8 @@ describe('Auth Routes Tests', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
-        email: 'email@test.com',
         username: 'slowsloh',
-        password: 'ham',
-        twitterHandle: 'yup'
+        password: 'ham'
       })
       .then(res => {
         return request(app)
@@ -100,9 +85,7 @@ describe('Auth Routes Tests', () => {
           .then(res => {
             expect(res.body).toEqual({
               _id: expect.any(String),
-              email: 'email@test.com',
-              username: 'slowsloh',
-              twitterHandle: 'yup'
+              username: 'slowsloh'
             });
           });
       });
