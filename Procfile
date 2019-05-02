@@ -1,2 +1,2 @@
 web: node server.js
-web: node lib/utils/reply-haikus.js
+worker: node lib/utils/reply-haikus.js
