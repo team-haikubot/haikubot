@@ -16,6 +16,9 @@
   "jest": {
     "testEnvironment": "node"
   },
+  "engines": {
+    "node": "11.13.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/team-haikubot/haikubot.git"
