@@ -4,5 +4,3 @@ node_js:
 services: mongodb
 //change env secret
 env: AUTH_SECRET=s3cret MONGODB_URI=mongodb://localhost:27017/auth
-
-
