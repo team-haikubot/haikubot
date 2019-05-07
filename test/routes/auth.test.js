@@ -86,7 +86,6 @@ describe('Auth Routes Tests', () => {
           .delete(`/api/v1/auth/${res.body.user.username}`)
           .set('Authorization', `Bearer ${res.body.token}`)
           .then(res => {
-            console.log(res.body);
             expect(res.body).toEqual({
               _id: expect.any(String),
               username: expect.any(String)
