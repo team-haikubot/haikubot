@@ -1,6 +1,6 @@
 const app = require('../../lib/app');
 const request = require('supertest');
-const cleanHaikuCollection = require('../../lib/utils/cleanDatabase');
+const cleanHaikuCollection = require('../../lib/utils/cleanHaikuCollection');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
 const Haiku = require('../../lib/models/Haiku');
