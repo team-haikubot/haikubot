@@ -1,6 +1,7 @@
 require('../data-helpers');
 const request = require('supertest');
 const app = require('../../lib/app');
+const chance = require('chance').Chance();
 
 describe('sevens routes tests', () => {
   it('can post a seven', () => {
@@ -8,7 +9,7 @@ describe('sevens routes tests', () => {
       .post('/api/v1/auth/signup')
       .send({
         email: 'testy@getoffmyback.com',
-        username: 'spicy',
+        username: chance.name(),
         password: 'ham',
         twitterHandle: 'yup'
       })
