@@ -37,6 +37,7 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "badwords-list": "^1.0.0",
     "bcryptjs": "^2.4.3",
     "chance": "^1.0.18",
     "cookie-parser": "^1.4.4",
