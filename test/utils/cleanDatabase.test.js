@@ -1,6 +1,6 @@
 const app = require('../../lib/app');
 const request = require('supertest');
-const cleanDatabase = require('../../lib/utils/cleanDatabase');
+const cleanHaikuCollection = require('../../lib/utils/cleanDatabase');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
 const Haiku = require('../../lib/models/Haiku');
@@ -15,7 +15,7 @@ it('creates a haiku from get route and returns to user,then uses cleanDatabase t
       expect(added.body._id).toEqual(expect.any(String));
     })
     .then(() => {
-      return cleanDatabase();
+      return cleanHaikuCollection();
     })
     .then(() => {
       return Haiku
