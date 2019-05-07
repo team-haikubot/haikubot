@@ -33,4 +33,26 @@ describe('sevens routes tests', () => {
         });
       });
   });
+  it('can post a seven', () => {
+    return request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        email: 'testy@getoffmyback.com',
+        username: chance.name(),
+        password: 'ham',
+        twitterHandle: 'yup'
+      })
+      
+      .then(user => {
+        return request(app)
+          .post('/api/v1/sevens')
+          .set('Authorization', `Bearer ${user.body.token}`)
+          .send({
+            text: 'why are you so fuck to me!?'
+          });
+      })
+      .then(seven => {
+        expect(seven.error.status).toEqual(405);
+      });
+  });
 });

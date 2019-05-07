@@ -13,7 +13,6 @@ describe('fives routes tests', () => {
       })
       
       .then(user => {
-        console.log(user.body);
         return request(app)
           .post('/api/v1/fives')
           .set('Authorization', `Bearer ${user.body.token}`)
@@ -30,5 +29,27 @@ describe('fives routes tests', () => {
           source: expect.any(String)
         });
       });
+  });
+
+  it('errors on a curse word', () => {
+    return request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        username: chance.name(),
+        password: 'ham'
+      })
+      
+      .then(user => {
+        return request(app)
+          .post('/api/v1/fives')
+          .set('Authorization', `Bearer ${user.body.token}`)
+          .send({
+            text: 'why are you so fuck!?'
+          });
+      })
+      .then(five => {
+        expect(five.error.status).toEqual(405);
+      });
+      
   });
 });
