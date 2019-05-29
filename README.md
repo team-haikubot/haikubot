@@ -1,4 +1,4 @@
-RobotHaikubot is a twitter bot built by Ben Perisot (@BenPerisot), Marty Martinez (@Marty42Martinez), Chris Lu (@ChrisLuPDX), Cheri Portman (@CheriPortman), and Emily Baier (@maybeemily). This project was built for our mid-term project at Alchemy Code Lab.
+**RobotHaikubot** is a twitter bot built by Ben Perisot (**@BenPerisot**), Marty Martinez (**@Marty42Martinez**), Chris Lu (**@ChrisLuPDX**), Cheri Portman (**@CheriPortman**), and Emily Baier (**@maybeemily**). This project was built for our mid-term project at Alchemy Code Lab.
 
 RobotHaikubot, upon being tweeted at, sends a random haiku composed of lines stored in a database. You can also add a hashtag to your request - #positive, #negative, or #neutral - to receive a haiku of that sentiment. No hashtag simply means to send a basic, random haiku.
 
