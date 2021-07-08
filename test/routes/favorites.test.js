@@ -3,6 +3,7 @@ const request = require('supertest');
 const app = require('../../lib/app');
 const mongoose = require('mongoose');
 const connect = require('../../lib/utils/connect');
+const chance = require('chance').Chance();
 
 describe('Favorites Routes Test', () => {
   beforeAll(() => {
@@ -15,10 +16,10 @@ describe('Favorites Routes Test', () => {
 
   it('posting a haiku as a favorite', () => {
     return request(app)
-      .post('/api/v1/auth/signin')
+      .post('/api/v1/auth/signup')
       .send({
         email: 'testy@getoffmyback.com',
-        username: 'spicy',
+        username: chance.name(),
         password: 'ham',
         twitterHandle: 'yup'
       })
@@ -26,6 +27,7 @@ describe('Favorites Routes Test', () => {
         return request(app)
           .get('/api/v1/haikus')
           .then(haiku => {
+            console.log(haiku.body);
             return request(app)
               .post('/api/v1/favorites')
               .set('Authorization', `Bearer ${user.body.token}`)

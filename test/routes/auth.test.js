@@ -2,6 +2,7 @@ require('../data-helpers');
 const request = require('supertest');
 const User = require('../../lib/models/User');
 const app = require('../../lib/app');
+const chance = require('chance').Chance();
 
 describe('Auth Routes Tests', () => {
 
@@ -9,7 +10,7 @@ describe('Auth Routes Tests', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
-        username: 'spicy',
+        username: chance.name(),
         password: 'ham'
       })
       .then(res => {
@@ -17,7 +18,7 @@ describe('Auth Routes Tests', () => {
           user: {
             __v: 0,
             _id: expect.any(String),
-            username: 'spicy',
+            username: expect.any(String),
           }, token: expect.any(String)
             
         });
@@ -25,15 +26,17 @@ describe('Auth Routes Tests', () => {
   }); 
   
   it('signs in a user', () => {
-    return User.create({
-      username: 'spicy',
-      password: 'ham'
-    })
-      .then(() => {
+    return request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        username: chance.name(),
+        password: 'ham'
+      })
+      .then(created => {
         return request(app)
           .post('/api/v1/auth/signin')
           .send({
-            username: 'spicy',
+            username: created.body.user.username,
             password: 'ham'
           });
       })
@@ -42,7 +45,7 @@ describe('Auth Routes Tests', () => {
           user: {
             __v: 0,
             _id: expect.any(String),
-            username: 'spicy'
+            username: expect.any(String)
           }, token: expect.any(String)
         });
       });
@@ -52,13 +55,13 @@ describe('Auth Routes Tests', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
-        username: 'slowsloh',
+        username: chance.name(),
         password: 'ham'
       })
-      .then(res => {
+      .then(created => {
         return request(app)
-          .patch(`/api/v1/auth/${res.body.user.username}`)
-          .set('Authorization', `Bearer ${res.body.token}`)
+          .patch(`/api/v1/auth/${created.body.user.username}`)
+          .set('Authorization', `Bearer ${created.body.token}`)
           .send({
             username: 'slowsloth'
           });
@@ -75,7 +78,7 @@ describe('Auth Routes Tests', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
-        username: 'slowsloh',
+        username: chance.name(),
         password: 'ham'
       })
       .then(res => {
@@ -85,7 +88,7 @@ describe('Auth Routes Tests', () => {
           .then(res => {
             expect(res.body).toEqual({
               _id: expect.any(String),
-              username: 'slowsloh'
+              username: expect.any(String)
             });
           });
       });
